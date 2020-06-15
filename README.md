@@ -8,3 +8,5 @@ Oke chị. mà e gửi link chị rồi mà?? @@
 Nó không cho merge vô luôn kìa chị eyy :<
 
 tại cái branch của chị chưa có file readme ó. chịu khó sửa đi nhe :)
+
+Oke chị :< e gửi link qua mess r nha.
