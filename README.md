@@ -6,3 +6,5 @@ Không ai add chị vào lại discord được hả :)
 Oke chị. mà e gửi link chị rồi mà?? @@
 Để em làm.\
 Nó không cho merge vô luôn kìa chị eyy :<
+
+tại cái branch của chị chưa có file readme ó. chịu khó sửa đi nhe :)
