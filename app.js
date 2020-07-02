@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //connect html file
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/app.html'));
+    res.sendFile(path.join(__dirname, 'public/main.html'));
 });
 
 server.on('connection', (client) => {

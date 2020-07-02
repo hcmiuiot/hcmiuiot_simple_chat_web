@@ -1,21 +1,83 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-            The simple chat web
+            SIMPLE WEB CHAT
         </title>
         <!--  Put links here  -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-        <script>
-            var client = io();
-        </script>
+        <link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+			crossorigin="anonymous"
+        />
+        <script
+			src="https://kit.fontawesome.com/213fbc8967.js"
+			crossorigin="anonymous"
+        ></script>
+        <script src="javascripts/functions.js"></script>
+        <script src="javascripts/design.js"></script><script
+		src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"
+        ></script>
+        <script
+	    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	    crossorigin="anonymous"
+        ></script>
+        <link rel="shortcut icon" href="images/logo.ico"/>
+		<link rel="stylesheet" href="stylesheets/style.css" />
     </head>
     <body>
-        <!--  Content here  -->
-    
-        <!--  Function here  -->
+        <img class="bg-img" src="images/logo.png" />
+		<div class="container">
+			<!-- Chat Page -->
+			<div class="chat-page">
+				<div class="chat-msgs" id="msg-area">
+				</div>
+				<form class="fixed-bottom" id="send-container">
+					<input
+						id="txt-input"
+						type="text"
+						id="input-msg"
+						class="form-control"
+						placeholder="Message"
+						autocomplete="off"
+						required
+					/>
+					<button class="btn btn-outline-primary" type="button" onclick="SendMsg()">
+						<i class="fas fa-paper-plane"></i> SEND
+					</button>
+				</form>
+			</div>
+        </div>
+        <!--  Put Socket here  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
         <script>
-    
+            var clientSocket = io();
+
+            clientSocket.on("connect", function () {
+                clientSocket.emit("msg", "New user connected!");  //Send msg from client to server.
+                clientSocket.on("message", (data) => {
+					//put the appendchild here?
+					var node = document.createElement("P");                 // Create a <li> node
+						node.setAttribute("style", "background-color: bisque;padding-left: 10px;opacity: 0.9;");
+					var textnode = document.createTextNode(data);         // Create a text node
+					node.appendChild(textnode);                              // Append the text to <li>
+					document.getElementById("msg-area").appendChild(node);
+					// end here
+                    console.log(data);
+                })
+                console.log("Connected to server!");
+            });         //check the connection
+
+            function SendMsg() {
+                clientSocket.emit("msg", document.getElementById("txt-input").value);
+                document.getElementById("txt-input").value = "";
+            };
         </script>
     </body>
 </html>

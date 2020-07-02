@@ -14,15 +14,8 @@ body {
 }
 
 .chat-msgs {
-	height: 93vh;
+	height: 150vh;
 	overflow-y: scroll;
-}
-
-.my-msgs {
-	background-color: aqua;
-	padding-right: 10px;
-	text-align: right;
-	opacity: 0.9;
 }
 
 .friend-msgs {
