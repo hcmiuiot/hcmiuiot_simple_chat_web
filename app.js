@@ -9,8 +9,6 @@ var server = require('socket.io').listen(serverr);
 var path = require('path');
 
 
-let client = [];
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,28 +19,30 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/main.html'));
 });
 
+
+
 server.on('connection', (client) => {
-    console.log("new client connected");
+    //console.log("new client connected");
 
     //take client username
-    client.on('create username', (username) => {
+    //client.on('create username', (username) => {
 
         //take message
-        client.on('chat message', (msg) => {
+    client.on('chat message', (msg) => {
             var usermsg = {
-                "username": username,
+                //"username": username,
                 "message": msg
-            };
-            //server.emit('chat message', username + ':' + msg);
+         };
+         console.log('receive message');
+        server.emit('chat message', msg);
             var data = JSON.stringify(usermsg);
             fs.writeFile('public/log.json', data, { flag: 'a+' }, (err) => {
                 if (err) {
                     throw err;
                 }
-                console.log("JSON data is saved.");
-    
+        
             });
         });
-    });
+    //});
 });
     module.exports = app;

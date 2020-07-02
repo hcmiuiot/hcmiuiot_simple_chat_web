@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -42,26 +42,26 @@
 					<input
 						id="txt-input"
 						type="text"
-						id="input-msg"
 						class="form-control"
 						placeholder="Message"
 						autocomplete="off"
 						required
 					/>
-					<button class="btn btn-outline-primary" type="button" onclick="SendMsg()">
+					<button class="btn btn-outline-primary" type="button" onclick="$('form').submit();">
 						<i class="fas fa-paper-plane"></i> SEND
 					</button>
 				</form>
 			</div>
         </div>
         <!--  Put Socket here  -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
         <script>
             var clientSocket = io();
 
-            clientSocket.on("connect", function () {
-                clientSocket.emit("msg", "New user connected!");  //Send msg from client to server.
-                clientSocket.on("message", (data) => {
+			clientSocket.on("connect", () => {
+                console.log("Connected to server!");
+
+                clientSocket.on("chat message", (data) => {
 					//put the appendchild here?
 					var node = document.createElement("P");                 // Create a <li> node
 						node.setAttribute("style", "background-color: bisque;padding-left: 10px;opacity: 0.9;");
@@ -70,14 +70,17 @@
 					document.getElementById("msg-area").appendChild(node);
 					// end here
                     console.log(data);
-                })
-                console.log("Connected to server!");
-            });         //check the connection
+				});
 
-            function SendMsg() {
-                clientSocket.emit("msg", document.getElementById("txt-input").value);
-                document.getElementById("txt-input").value = "";
-            };
+				$('form').submit(function (e) {
+                    e.preventDefault();
+                    clientSocket.emit("chat message", document.getElementById("txt-input").value);
+					document.getElementById("txt-input").value = "";
+					console.log("send msg");
+				});
+            });         
+
+     
         </script>
     </body>
 </html>
