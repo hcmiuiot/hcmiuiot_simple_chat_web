@@ -94,11 +94,7 @@
 						autocomplete="off"
 						required
 					/>
-					<button
-						class="btn btn-outline-primary"
-						type="button"
-						onclick=SendMsg();
-					>
+					<button class="btn btn-outline-primary" type="submit">
 						<i class="fas fa-paper-plane"></i> SEND
 					</button>
 				</form>
@@ -107,7 +103,13 @@
 		<!--  Put Socket here  -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
 		<script>
-			function SendMsg() {
+			var clientSocket = io();
+
+			document.addEventListener('DOMContentLoaded', function () {
+				document.querySelector('#send-container').onsubmit = function (
+					e
+				) {
+					e.preventDefault();
 					clientSocket.emit(
 						'chat message',
 						username,
@@ -115,26 +117,35 @@
 					);
 					document.getElementById('txt-input').value = '';
 					console.log('send msg');
-			};
-
-			var clientSocket = io();
+				};
+			});
 
 			clientSocket.on('connect', () => {
 				console.log('Connected to server!');
 			});
-			clientSocket.on('chat message', (username, msg) => {
-				var msgContent = username + ': ' + msg;
+
+			clientSocket.on('chat message', (msgsname, msg) => {
+				var msgContent = msgsname + ': ' + msg;
 				//put the appendchild here?
 				var node = document.createElement('P'); // Create a <li> node
-				node.setAttribute(
-					'style',
-					'background-color: bisque;padding-left: 10px;opacity: 0.9;'
-				);
+				if (msgsname === username) {
+					node.setAttribute(
+						'style',
+						'background-color: aqua; padding-right: 10px; opacity: 0.9; text-align: right; font-weight: bold; font-size: 20px'
+					);
+				} else {
+					node.setAttribute(
+						'style',
+						'background-color: bisque;padding-left: 10px;opacity: 0.9; font-weight: bold; font-size: 20px'
+					);
+				}
 				var textnode = document.createTextNode(msgContent); // Create a text node
 				node.appendChild(textnode); // Append the text to <li>
 				document.getElementById('msg-area').appendChild(node);
-				document.querySelector('#msg-area').scrollTop = document.querySelector('#msg-area').scrollHeight;
-				// end here	
+				document.querySelector(
+					'#msg-area'
+				).scrollTop = document.querySelector('#msg-area').scrollHeight;
+				// end here
 			});
 		</script>
 	</body>
