@@ -97,7 +97,7 @@
 					<button
 						class="btn btn-outline-primary"
 						type="button"
-						onclick="$('form').submit();"
+						onclick=SendMsg();
 					>
 						<i class="fas fa-paper-plane"></i> SEND
 					</button>
@@ -107,28 +107,7 @@
 		<!--  Put Socket here  -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
 		<script>
-			var clientSocket = io();
-
-			clientSocket.on('connect', () => {
-				console.log('Connected to server!');
-
-				clientSocket.on('chat message', (username, msg) => {
-					var msgContent = username + ': ' + msg;
-					//put the appendchild here?
-					var node = document.createElement('P'); // Create a <li> node
-					node.setAttribute(
-						'style',
-						'background-color: bisque;padding-left: 10px;opacity: 0.9;'
-					);
-					var textnode = document.createTextNode(msgContent); // Create a text node
-					node.appendChild(textnode); // Append the text to <li>
-					document.getElementById('msg-area').appendChild(node);
-					document.querySelector('#msg-area').scrollTop = document.querySelector('#msg-area').scrollHeight;
-					// end here
-				});
-
-				$('form').submit(function (e) {
-					e.preventDefault();
+			function SendMsg() {
 					clientSocket.emit(
 						'chat message',
 						username,
@@ -136,7 +115,26 @@
 					);
 					document.getElementById('txt-input').value = '';
 					console.log('send msg');
-				});
+			};
+
+			var clientSocket = io();
+
+			clientSocket.on('connect', () => {
+				console.log('Connected to server!');
+			});
+			clientSocket.on('chat message', (username, msg) => {
+				var msgContent = username + ': ' + msg;
+				//put the appendchild here?
+				var node = document.createElement('P'); // Create a <li> node
+				node.setAttribute(
+					'style',
+					'background-color: bisque;padding-left: 10px;opacity: 0.9;'
+				);
+				var textnode = document.createTextNode(msgContent); // Create a text node
+				node.appendChild(textnode); // Append the text to <li>
+				document.getElementById('msg-area').appendChild(node);
+				document.querySelector('#msg-area').scrollTop = document.querySelector('#msg-area').scrollHeight;
+				// end here	
 			});
 		</script>
 	</body>
