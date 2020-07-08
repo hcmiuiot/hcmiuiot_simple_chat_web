@@ -97,7 +97,6 @@
 			});
 
 			clientSocket.on('chat message', (msgsname, msg) => {
-				var msgContent = msgsname + ': ' + msg;
 				//put the appendchild here?
 				var node = document.createElement('SECTION');
 				if (msgsname === username) {
