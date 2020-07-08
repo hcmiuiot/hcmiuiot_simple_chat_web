@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>
 			SIMPLE WEB CHAT
@@ -28,73 +28,44 @@
 				};
 			});
 		</script>
+		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
 	</head>
 	<body>
 		<img class="bg-img" src="images/logo.png" />
 		<div class="container">
 			<!-- Modal -->
-			<div
-				class="modal fade"
-				id="staticBackdrop"
-				data-backdrop="static"
-				data-keyboard="false"
-				tabindex="-1"
-				role="dialog"
-				aria-labelledby="staticBackdropLabel"
-				aria-hidden="true"
-			>
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="staticBackdropLabel">
-								WELCOME TO WEB CHAT
-							</h5>
-						</div>
-						<div class="modal-body">
-							<div class="input-group input-group-lg">
-								<span
-									style="font-size: 37px; margin-right: 10px;"
-								>
-									<i class="fas fa-user"></i>
-								</span>
-								<input
-									type="text"
-									class="form-control"
-									id="usernameInput"
-									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-lg"
-									placeholder="Username"
-								/>
+			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog" style="padding-top: 140px;">
+					<section class="nes-container with-title" style="background-color: white;">
+						<h3 class="title">WELCOME TO WEB CHAT</h3>
+						<div class="modal-content" style="border: 0px">
+							<span style="font-size: 37px; margin-right: 10px;" >
+								<i class="nes-octocat animate"></i>
+							</span>
+							<div class="nes-field">
+								<input type="text" id="usernameInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Username" class="nes-input" />
 							</div>
-						</div>
-						<div class="modal-footer">
-							<button
-								type="button"
-								class="btn btn-primary"
-								data-dismiss="modal"
-								id="btnUsername"
-								disabled
-							>
-								Login with this username
+							<button type="button" class="nes-btn is-primary" data-dismiss="modal" id="btnUsername" disabled>
+								LOGIN WITH THIS USERNAME
 							</button>
 						</div>
-					</div>
+					</section>
 				</div>
 			</div>
-
 			<!-- Chat Page -->
-			<div class="chat-page">
+			<div style="padding-bottom: 70px; padding-top: 2px; border: black; border-width: 3px;">
 				<div class="chat-msgs" id="msg-area"></div>
 				<form class="fixed-bottom" id="send-container">
 					<input
 						id="txt-input"
 						type="text"
-						class="form-control"
+						class="nes-textarea"
 						placeholder="Message"
 						autocomplete="off"
 						required
 					/>
-					<button class="btn btn-outline-primary" type="submit">
+					<button class="nes-btn is-primary" type="submit">
 						<i class="fas fa-paper-plane"></i> SEND
 					</button>
 				</form>
