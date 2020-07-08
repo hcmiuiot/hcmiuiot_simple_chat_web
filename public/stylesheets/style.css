@@ -1,8 +1,35 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
 }
 
-a {
-  color: #00B7FF;
+.bg-img {
+	position: fixed;
+	height: auto;
+	width: 47%;
+	z-index: -1;
+	opacity: 0.3;
 }
+
+.chat-msgs {
+	padding-top: 10px;
+	height: 93vh;
+	overflow-y: scroll;
+}
+
+.friend-msgs {
+	background-color: bisque;
+	padding-left: 10px;
+	opacity: 0.9;
+}
+
+#send-container {
+	width: 90%;
+	padding-bottom: 3px;
+	margin: auto;
+	display: grid;
+	grid-template-columns: 6fr 1fr;
+}
+
