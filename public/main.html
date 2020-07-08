@@ -98,11 +98,13 @@
 				var msgContent = msgsname + ': ' + msg;
 				//put the appendchild here?
 				var node = document.createElement('SECTION');
+				var nodeiframe = document.createElement('DIV');
 				
 				if (msgsname === username) {
 					setAtt(node, 'class', 'message -right');
 					setAtt(node, 'id', 'right-msg');				
 					//Add msg:
+					setAtt(nodeiframe, 'id', 'ifr');
 					var nodemsg = document.createElement('P');
 					nodemsg.setAttribute(
 						'class',
@@ -111,7 +113,10 @@
 					var msgnode = document.createTextNode(msg);
 					nodemsg.appendChild(msgnode);
 					node.appendChild(nodemsg);
+					node.appendChild(nodeiframe);
 					document.getElementById('msg-area').appendChild(node);
+					console.log(node);
+					
 				}
 				else {
 					setAtt(node, 'class', 'message -left');

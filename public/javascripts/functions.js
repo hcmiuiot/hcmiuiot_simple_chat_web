@@ -7,7 +7,7 @@
                 var result =splitText[i].split('').find(char => char == '.');
                 console.log(result);
                 if( result == '.') {
-                    var append = `<iframe src= ${splitText[i]}> </iframe>`;
+                    var append = `<iframe src="${splitText[i]}"></iframe>`;
                     console.log(append);
                     break;
                 };
