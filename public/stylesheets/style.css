@@ -3,6 +3,7 @@ body {
 	margin: 0;
 	display: flex;
 	justify-content: center;
+
 	background-image: url("/images/background.webp");
 }
 
@@ -31,3 +32,24 @@ body {
 	display: grid;
 	grid-template-columns: 6fr 1fr;
 }
+
+.chat-msgs {
+	padding-top: 10px;
+	height: 93vh;
+	overflow-y: scroll;
+}
+
+.friend-msgs {
+	background-color: bisque;
+	padding-left: 10px;
+	opacity: 0.9;
+}
+
+#send-container {
+	width: 90%;
+	padding-bottom: 3px;
+	margin: auto;
+	display: grid;
+	grid-template-columns: 6fr 1fr;
+}
+
