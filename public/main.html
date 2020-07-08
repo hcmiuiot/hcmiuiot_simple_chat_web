@@ -1,43 +1,90 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
+	<head>
+		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>
-            SIMPLE WEB CHAT
-        </title>
-        <!--  Put links here  -->
-        <link
+		<title>
+			SIMPLE WEB CHAT
+		</title>
+		<!--  Put links here  -->
+		<link
 			rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 			crossorigin="anonymous"
-        />
-        <script
+		/>
+		<script
 			src="https://kit.fontawesome.com/213fbc8967.js"
 			crossorigin="anonymous"
-        ></script>
-        <script src="javascripts/functions.js"></script>
-        <script src="javascripts/design.js"></script><script
-		src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"
-        ></script>
-        <script
-	    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-	    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-	    crossorigin="anonymous"
-        ></script>
-        <link rel="shortcut icon" href="images/logo.ico"/>
+		></script>
+		<script src="javascripts/functions.js"></script>
+		<link rel="shortcut icon" href="images/logo.ico" />
 		<link rel="stylesheet" href="stylesheets/style.css" />
-    </head>
-    <body>
-        <img class="bg-img" src="images/logo.png" />
+		<script>
+			var username;
+			document.addEventListener('DOMContentLoaded', () => {
+				document.querySelector('#btnUsername').onclick = () => {
+					username = document.querySelector('#usernameInput').value;
+				};
+			});
+		</script>
+	</head>
+	<body>
+		<img class="bg-img" src="images/logo.png" />
 		<div class="container">
+			<!-- Modal -->
+			<div
+				class="modal fade"
+				id="staticBackdrop"
+				data-backdrop="static"
+				data-keyboard="false"
+				tabindex="-1"
+				role="dialog"
+				aria-labelledby="staticBackdropLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">
+								WELCOME TO WEB CHAT
+							</h5>
+						</div>
+						<div class="modal-body">
+							<div class="input-group input-group-lg">
+								<span
+									style="font-size: 37px; margin-right: 10px;"
+								>
+									<i class="fas fa-user"></i>
+								</span>
+								<input
+									type="text"
+									class="form-control"
+									id="usernameInput"
+									aria-label="Sizing example input"
+									aria-describedby="inputGroup-sizing-lg"
+									placeholder="Username"
+								/>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button
+								type="button"
+								class="btn btn-primary"
+								data-dismiss="modal"
+								id="btnUsername"
+								disabled
+							>
+								Login with this username
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<!-- Chat Page -->
 			<div class="chat-page">
-				<div class="chat-msgs" id="msg-area">
-				</div>
+				<div class="chat-msgs" id="msg-area"></div>
 				<form class="fixed-bottom" id="send-container">
 					<input
 						id="txt-input"
@@ -47,40 +94,81 @@
 						autocomplete="off"
 						required
 					/>
-					<button class="btn btn-outline-primary" type="button" onclick="$('form').submit();">
+					<button class="btn btn-outline-primary" type="submit">
 						<i class="fas fa-paper-plane"></i> SEND
 					</button>
 				</form>
 			</div>
-        </div>
-        <!--  Put Socket here  -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
-        <script>
-            var clientSocket = io();
+		</div>
+		<!--  Put Socket here  -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+		<script>
+			var clientSocket = io();
 
-			clientSocket.on("connect", () => {
-                console.log("Connected to server!");
+			document.addEventListener('DOMContentLoaded', function () {
+				document.querySelector('#send-container').onsubmit = function (
+					e
+				) {
+					e.preventDefault();
+					clientSocket.emit(
+						'chat message',
+						username,
+						document.getElementById('txt-input').value
+					);
+					document.getElementById('txt-input').value = '';
+					console.log('send msg');
+				};
+			});
 
-                clientSocket.on("chat message", (data) => {
-					//put the appendchild here?
-					var node = document.createElement("P");                 // Create a <li> node
-						node.setAttribute("style", "background-color: bisque;padding-left: 10px;opacity: 0.9;");
-					var textnode = document.createTextNode(data);         // Create a text node
-					node.appendChild(textnode);                              // Append the text to <li>
-					document.getElementById("msg-area").appendChild(node);
-					// end here
-                    console.log(data);
-				});
+			clientSocket.on('connect', () => {
+				console.log('Connected to server!');
+			});
 
-				$('form').submit(function (e) {
-                    e.preventDefault();
-                    clientSocket.emit("chat message", document.getElementById("txt-input").value);
-					document.getElementById("txt-input").value = "";
-					console.log("send msg");
-				});
-            });         
-
-     
-        </script>
-    </body>
+			clientSocket.on('chat message', (msgsname, msg) => {
+				//put the appendchild here?
+				var node = document.createElement('P');
+				var nodename = document.createElement('DIV');
+				if (msgsname === username) {
+					node.setAttribute(
+						'style',
+						'position: relative;margin-bottom: 10px;margin-left: calc(90% - 240px);padding: 10px;background-color: #f8e896;text-align: left;font: Monaco;border: 1px solid #dfd087;border-radius: 10px'
+					);
+					nodename.setAttribute(
+						'style',
+						'text-align: right; padding-right: 10px; padding-bottom: 1px; font-weight: bold; font-style: italic; color: #ADB513#1A0FE7'
+					);
+				} else {
+					node.setAttribute(
+						'style',
+						'position: relative;margin-left: 20px;margin-bottom: 10px;margin-right: calc(90% - 500px);padding: 10px;background-color: #A8DDFD;text-align: left;font: Monaco;border: 1px solid #97C6E3;border-radius: 10px;'
+					);
+					nodename.setAttribute(
+						'style',
+						'text-align: left; padding-left: 30px; padding-bottom: 1px; font-weight: bold; font-style: italic; color: #1A0FE7'
+					);
+				}
+				var namenode = document.createTextNode(msgsname);
+				var textnode = document.createTextNode(msg); // Create a text node
+				nodename.appendChild(namenode);
+				node.appendChild(textnode);
+				document.getElementById('msg-area').appendChild(nodename);
+				document.getElementById('msg-area').appendChild(node);
+				document.querySelector(
+					'#msg-area'
+				).scrollTop = document.querySelector('#msg-area').scrollHeight;
+				// end here
+			});
+		</script>
+	</body>
+	<script
+		src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"
+	></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"
+	></script>
+	<script src="javascripts/design.js"></script>
 </html>
