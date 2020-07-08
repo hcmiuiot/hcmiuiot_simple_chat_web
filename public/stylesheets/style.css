@@ -3,20 +3,19 @@ body {
 	margin: 0;
 	display: flex;
 	justify-content: center;
+	background-image: url("/images/background.webp");
 }
 
-.bg-img {
-	position: fixed;
-	height: auto;
-	width: 47%;
-	z-index: -1;
-	opacity: 0.3;
+#right-msg {
+	position: relative;
+	margin-left: calc(90% - 140px);
 }
 
 .chat-msgs {
 	padding-top: 10px;
 	height: 93vh;
 	overflow-y: scroll;
+	padding-bottom: 10px;
 }
 
 .friend-msgs {
@@ -32,4 +31,3 @@ body {
 	display: grid;
 	grid-template-columns: 6fr 1fr;
 }
-
