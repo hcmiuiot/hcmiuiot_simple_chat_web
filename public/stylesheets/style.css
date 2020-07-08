@@ -52,26 +52,28 @@ body {
 }
 
 ::-webkit-scrollbar {
-	width: 10em;
-	height: 17em;
-}
-   
-
-::-webkit-scrollbar-thumb {
 	width: 68px;
-	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/cat.gif"),
-	  linear-gradient(
-		90deg,
-		transparent,
-		magenta,
-		red,
-		yellow,
-		limegreen,
-		turquoise,
-		blue,
-		magenta,
-		transparent
-	);
+	height: 68px;
+}
+
+
+::-webkit-scrollbar-thumb:vertical {
+	width: 68px;
+	height: 68px;
+	background-image: url("/images/ezgif.com-rotate(1).gif");
+	background-position: center bottom, center -40px;
+	background-repeat: no-repeat, no-repeat;
+	background-size: contain, contain;
+}
+
+::-webkit-scrollbar-corner {
+	opacity: 0.0;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+	width: 68px;
+	height: 68px;
+	background-image: url("https://i.imgur.com/MjeqeUP.gif");
 	background-position: center bottom, center -40px;
 	background-repeat: no-repeat, no-repeat;
 	background-size: contain, contain;
