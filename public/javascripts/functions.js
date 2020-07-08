@@ -8,7 +8,6 @@
             if( result == '.') {
                     var append = `<iframe src=' ${splitText[i]}'> </iframe>`;
                     console.log(append);
-                    try[try.length-1].innerHTML(append);
                     break;
                 };
             }
