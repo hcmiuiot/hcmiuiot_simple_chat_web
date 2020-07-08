@@ -19,11 +19,22 @@ app.get('/', (req, res) => {
 
 
 
-server.on('connection', (client) => {
-	//console.log("new client connected");
+var arrMsg = [];
 
-	// take client username
-	// client.on('create username', (username) => {
+server.on('connection', (client) => {
+	var count = 0;
+	//send old msgs to new user
+	fs.readFile('./public/log.json', (err, data) => {
+		if (err) {
+			throw err;
+		} else {
+			var oldMsgs = JSON.parse(data);
+			while ((oldMsgs.length > 0) && (count < oldMsgs.length)) {
+				client.emit('chat message', oldMsgs[count].username, oldMsgs[count].message);	
+				count += 1;
+			}
+		}
+	});
 
 	//take message
 	client.on('chat message', (username, msg) => {
@@ -33,13 +44,13 @@ server.on('connection', (client) => {
 		};
 		console.log('receive message');
 		server.emit('chat message', username, msg);
-		var data = JSON.stringify(usermsg);
-		fs.writeFile('public/log.json', data, { flag: 'a+' }, (err) => {
+		arrMsg.push(usermsg);
+		var data = JSON.stringify(arrMsg);
+		fs.writeFile('public/log.json', data, { flag: 'w+' }, (err) => {
 			if (err) {
 				throw err;
 			}
 		});
 	});
-	//});
 });
 module.exports = app;
