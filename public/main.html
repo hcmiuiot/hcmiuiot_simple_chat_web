@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>
 			SIMPLE WEB CHAT
@@ -28,77 +28,47 @@
 				};
 			});
 		</script>
+		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
 	</head>
 	<body>
-		<img class="bg-img" src="images/logo.png" />
 		<div class="container">
 			<!-- Modal -->
-			<div
-				class="modal fade"
-				id="staticBackdrop"
-				data-backdrop="static"
-				data-keyboard="false"
-				tabindex="-1"
-				role="dialog"
-				aria-labelledby="staticBackdropLabel"
-				aria-hidden="true"
-			>
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="staticBackdropLabel">
-								WELCOME TO WEB CHAT
-							</h5>
-						</div>
-						<div class="modal-body">
-							<div class="input-group input-group-lg">
-								<span
-									style="font-size: 37px; margin-right: 10px;"
-								>
-									<i class="fas fa-user"></i>
-								</span>
-								<input
-									type="text"
-									class="form-control"
-									id="usernameInput"
-									aria-label="Sizing example input"
-									aria-describedby="inputGroup-sizing-lg"
-									placeholder="Username"
-								/>
+			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog" style="padding-top: 140px;">
+					<section class="nes-container with-title" style="background-image: url(images/background.webp);">
+						<h3 class="title">WELCOME TO WEB CHAT</h3>
+						<div class="modal-content" style="border: 0px">
+							<span style="font-size: 37px; background-image: url(images/background.webp);" >
+								<i class="nes-octocat animate"></i>
+							</span>
+							<div class="nes-field" style="background-image: url(images/background.webp); margin-bottom: 2px;">
+								<input type="text" id="usernameInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Username" class="nes-input" />
 							</div>
-						</div>
-						<div class="modal-footer">
-							<button
-								type="button"
-								class="btn btn-primary"
-								data-dismiss="modal"
-								id="btnUsername"
-								disabled
-							>
-								Login with this username
+							<button type="button" class="nes-btn is-primary" data-dismiss="modal" id="btnUsername" disabled>
+								LOGIN WITH THIS USERNAME
 							</button>
 						</div>
-					</div>
+					</section>
 				</div>
 			</div>
-
 			<!-- Chat Page -->
-			<div class="chat-page">
+			<div style="padding-top: 2px; padding-bottom: 10px;">
 				<div class="chat-msgs" id="msg-area"></div>
-				<form class="fixed-bottom" id="send-container">
-					<input
-						id="txt-input"
-						type="text"
-						class="form-control"
-						placeholder="Message"
-						autocomplete="off"
-						required
-					/>
-					<button class="btn btn-outline-primary" type="submit">
-						<i class="fas fa-paper-plane"></i> SEND
-					</button>
-				</form>
 			</div>
+			<form class="fixed-bottom" id="send-container">
+				<input
+					id="txt-input"
+					type="text"
+					class="nes-textarea"
+					placeholder="Message"
+					autocomplete="off"
+					required
+				/>
+				<button class="nes-btn is-primary" type="submit">
+					<i class="fas fa-paper-plane"></i> SEND
+				</button>
+			</form>
 		</div>
 		<!--  Put Socket here  -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
@@ -127,38 +97,46 @@
 			clientSocket.on('chat message', (msgsname, msg) => {
 				var msgContent = msgsname + ': ' + msg;
 				//put the appendchild here?
-				var node = document.createElement('P');
-				var nodename = document.createElement('DIV');
+				var node = document.createElement('SECTION');
+				
 				if (msgsname === username) {
-					node.setAttribute(
-						'style',
-						'position: relative;margin-bottom: 10px;margin-left: calc(90% - 240px);padding: 10px;background-color: #f8e896;text-align: left;font: Monaco;border: 1px solid #dfd087;border-radius: 10px'
+					setAtt(node, 'class', 'message -right');
+					setAtt(node, 'id', 'right-msg');				
+					//Add msg:
+					var nodemsg = document.createElement('P');
+					nodemsg.setAttribute(
+						'class',
+						'nes-balloon from-right'
 					);
-					nodename.setAttribute(
-						'style',
-						'text-align: right; padding-right: 10px; padding-bottom: 1px; font-weight: bold; font-style: italic; color: #ADB513#1A0FE7'
-					);
-				} else {
-					node.setAttribute(
-						'style',
-						'position: relative;margin-left: 20px;margin-bottom: 10px;margin-right: calc(90% - 500px);padding: 10px;background-color: #A8DDFD;text-align: left;font: Monaco;border: 1px solid #97C6E3;border-radius: 10px;'
-					);
-					nodename.setAttribute(
-						'style',
-						'text-align: left; padding-left: 30px; padding-bottom: 1px; font-weight: bold; font-style: italic; color: #1A0FE7'
-					);
+					var msgnode = document.createTextNode(msg);
+					nodemsg.appendChild(msgnode);
+					node.appendChild(nodemsg);
+					document.getElementById('msg-area').appendChild(node);
 				}
-				var namenode = document.createTextNode(msgsname);
-				var textnode = document.createTextNode(msg); // Create a text node
-				nodename.appendChild(namenode);
-				node.appendChild(textnode);
-				document.getElementById('msg-area').appendChild(nodename);
-				document.getElementById('msg-area').appendChild(node);
+				else {
+					setAtt(node, 'class', 'message -left');
+					setAtt(node, 'id', 'left-msg');				
+					//Add msg:
+					var nodemsg = document.createElement('P');
+					
+					nodemsg.setAttribute(
+						'class',
+						'nes-balloon from-left'
+					);
+					var msgnode = document.createTextNode(msg);
+					nodemsg.appendChild(msgnode);
+					node.appendChild(nodemsg);
+					document.getElementById('msg-area').appendChild(node);
+				}
 				document.querySelector(
 					'#msg-area'
 				).scrollTop = document.querySelector('#msg-area').scrollHeight;
 				// end here
 			});
+
+			function setAtt(node, att, attvalues) {
+				node.setAttribute(att, attvalues);
+			};
 		</script>
 	</body>
 	<script
@@ -171,6 +149,7 @@
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"
 	></script>
-	<script src="javascripts/design.js"></script>
+  <script src="javascripts/design.js"></script>
 	<script src="javascripts/functions.js"></script>
+
 </html>
