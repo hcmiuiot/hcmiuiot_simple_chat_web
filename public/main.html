@@ -20,6 +20,7 @@
 		<script src="javascripts/functions.js"></script>
 		<link rel="shortcut icon" href="images/logo.ico" />
 		<link rel="stylesheet" href="stylesheets/style.css" />
+		<link rel="stylesheet" href="stylesheets/stylenes.css">
 		<script>
 			var username;
 			document.addEventListener('DOMContentLoaded', () => {
@@ -32,6 +33,7 @@
 		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
 	</head>
 	<body>
+		<img src="/images/bgimgs.png" class="bg-image">
 		<div class="container">
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -54,7 +56,7 @@
 			</div>
 			<!-- Chat Page -->
 			<div style="padding-top: 2px; padding-bottom: 10px;">
-				<div class="chat-msgs" id="msg-area"></div>
+				<section class="message-list" id="msg-area"></section>
 			</div>
 			<form class="fixed-bottom" id="send-container">
 				<input
@@ -103,28 +105,44 @@
 					setAtt(node, 'class', 'message -right');
 					setAtt(node, 'id', 'right-msg');				
 					//Add msg:
-					var nodemsg = document.createElement('P');
+					var nodemsg = document.createElement('DIV');
+					var nodename = document.createElement("I");
 					nodemsg.setAttribute(
 						'class',
 						'nes-balloon from-right'
 					);
+					nodename.setAttribute(
+						'style',
+						'color: lightgrey; margin-bottom: 0px; font-size: 20px'
+					);
 					var msgnode = document.createTextNode(msg);
+					var namenode = document.createTextNode(msgsname);
 					nodemsg.appendChild(msgnode);
+					nodename.appendChild(namenode);
 					node.appendChild(nodemsg);
+					node.appendChild(nodename);
 					document.getElementById('msg-area').appendChild(node);
+					console.log(node);
 				}
 				else {
 					setAtt(node, 'class', 'message -left');
 					setAtt(node, 'id', 'left-msg');				
 					//Add msg:
 					var nodemsg = document.createElement('P');
-					
+					var nodename = document.createElement("I");
 					nodemsg.setAttribute(
 						'class',
 						'nes-balloon from-left'
 					);
+					nodename.setAttribute(
+						'style',
+						'font-style: oblique; font-size: 20; color: pink'
+					);
 					var msgnode = document.createTextNode(msg);
+					var namenode = document.createTextNode(msgsname);
+					nodename.appendChild(namenode);
 					nodemsg.appendChild(msgnode);
+					node.appendChild(nodename);
 					node.appendChild(nodemsg);
 					document.getElementById('msg-area').appendChild(node);
 				}
