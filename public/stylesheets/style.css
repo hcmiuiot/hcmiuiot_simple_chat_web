@@ -12,9 +12,27 @@ body {
 	margin-left: calc(90% - 140px);
 }
 
-.chat-msgs {
+
+.bg-image {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    bottom: 0;  
+    z-index: -1;
+
+}
+
+#right-msg {
+	display: block;
+}
+
+#left-msg {
+	display: block;
+}
+#msg-area {
 	padding-top: 10px;
-	height: 93vh;
+	height: 90vh;
 	overflow-y: scroll;
 	padding-bottom: 10px;
 }
@@ -33,23 +51,28 @@ body {
 	grid-template-columns: 6fr 1fr;
 }
 
-.chat-msgs {
-	padding-top: 10px;
-	height: 93vh;
-	overflow-y: scroll;
+::-webkit-scrollbar {
+	width: 10em;
+	height: 17em;
 }
+   
 
-.friend-msgs {
-	background-color: bisque;
-	padding-left: 10px;
-	opacity: 0.9;
+::-webkit-scrollbar-thumb {
+	width: 68px;
+	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/cat.gif"),
+	  linear-gradient(
+		90deg,
+		transparent,
+		magenta,
+		red,
+		yellow,
+		limegreen,
+		turquoise,
+		blue,
+		magenta,
+		transparent
+	);
+	background-position: center bottom, center -40px;
+	background-repeat: no-repeat, no-repeat;
+	background-size: contain, contain;
 }
-
-#send-container {
-	width: 90%;
-	padding-bottom: 3px;
-	margin: auto;
-	display: grid;
-	grid-template-columns: 6fr 1fr;
-}
-
