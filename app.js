@@ -34,7 +34,7 @@ server.on('connection', (client) => {
 					client.emit('chat message', oldMsgs[count].username, oldMsgs[count].message);
 				}
 				else {
-					client.emit('code snippet', oldMsgs[count].username, oldMsgs[count].snippet, 'code');
+					client.emit('code snippet', oldMsgs[count].username, oldMsgs[count].snippet, oldMsgs[count].lang);
                 }
 				count += 1;
 			}
@@ -63,6 +63,7 @@ server.on('connection', (client) => {
 		var usercode = {
 			username: username,
 			snippet: code,
+			lang: check
 		};
 		console.log('receive code');
 		server.emit('code snippet', username, code, check);

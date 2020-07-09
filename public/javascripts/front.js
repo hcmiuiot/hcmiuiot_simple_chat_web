@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-var clientSocket = io();
+var clientSocket = io({ transports: ['websocket'], upgrade: false });
 
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#send-container').onsubmit = function (
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'chat message',
                 username,
                 document.getElementById('txt-input').value,
-                'code'
+                document.getElementById('lang').value 
             );
             document.getElementById('txt-input').value = '';
             console.log('send msg');
@@ -36,11 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 });
 
-
-
-clientSocket.on('connect', () => {
-    console.log('Connected to server!');
-});
 
 clientSocket.on('chat message', (msgsname, msg) => {
    
@@ -109,11 +104,11 @@ clientSocket.on('chat message', (msgsname, msg) => {
     // end here
 });
 
-clientSocket.on('code snippet', (name, code, check) => {
+clientSocket.on('code snippet', (name, code, lang) => {
     var prenode = document.createElement('PRE');
     var codenode = document.createElement('CODE');
-    setAtt(prenode, 'class', 'language-js');
-    setAtt(codenode, 'class', 'language-js');
+    setAtt(prenode, 'class', lang);
+    setAtt(codenode, 'class', lang);
     var html = Prism.highlight(code, Prism.languages.javascript, 'javascript');
     codenode.innerHTML = html;
     prenode.appendChild(codenode);

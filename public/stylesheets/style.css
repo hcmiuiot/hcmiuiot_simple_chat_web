@@ -11,7 +11,7 @@ body {
 }
 
 pre {
-
+	background-color: darkslategrey;
 	display: flex;
 }
 

@@ -1,1 +1,1 @@
-[{"username":"hello","message":"\t\t\t\t4567890\n"}]
+[{"username":"no","message":"hello?\n"},{"username":"no","snippet":"\t\tconsole.log('receive message');\n\t\tserver.emit('chat message', username, msg);\n\t\tarrMsg.push(usermsg);\n\t\tvar data = JSON.stringify(arrMsg);\n\t\tfs.writeFile('public/log.json', data, { flag: 'w+' }, (err) => {\n\t\t\tif (err) {\n\t\t\t\tthrow err;\n\t\t\t}"}]

@@ -50,21 +50,29 @@
 			<!-- Chat Page -->
 			<div style="padding-top: 2px; padding-bottom: 10px;">
 				<section class="message-list" id="msg-area">
-					<pre><code class="language-js">var js;</code></pre>
+					
 				</section>
 			</div>
 			<form class="fixed-bottom" id="send-container">
 				<textarea id="txt-input"
-					   type="text"
-					   class="nes-textarea"
-					   placeholder="Message"
-					   autocomplete="off"
-					   required>
+						  type="text"
+						  class="nes-textarea"
+						  placeholder="Message"
+						  autocomplete="off"
+						  required>
 				</textarea>
 				<label>
 					<input type="checkbox" id="codecheck" class="nes-checkbox" />
 					<span>codesnippet</span>
 				</label>
+				<label for="default_select"></label>
+				<div class="nes-select">
+					<select required id="lang">
+						<option value="language-js" disabled selected hidden>javascript</option>
+						<option value="language-css">CSS</option>
+						<option value="language-cpp">C++</option>
+					</select>
+				</div>
 				<button class="nes-btn" id="sendbtn">
 					<i class="fas fa-paper-plane"></i> SEND
 				</button>
