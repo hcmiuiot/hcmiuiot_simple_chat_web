@@ -52,5 +52,23 @@ server.on('connection', (client) => {
 			}
 		});
 	});
+
+	//take code
+	client.on('code snippet', (username, code, check) => {
+		var usercode = {
+			username: username,
+			snippet: code,
+		};
+		console.log('receive code');
+		server.emit('code snippet', username, code, check);
+		arrMsg.push(usercode);
+		var data = JSON.stringify(arrMsg);
+		fs.writeFile('public/log.json', data, { flag: 'w+' }, (err) => {
+			if (err) {
+				throw err;
+			}
+		});
+	});
 });
 module.exports = app;
+

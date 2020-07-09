@@ -14,15 +14,29 @@ document.addEventListener('DOMContentLoaded', function () {
         e
     ) {
         e.preventDefault();
-        clientSocket.emit(
-            'chat message',
-            username,
-            document.getElementById('txt-input').value
-        );
-        document.getElementById('txt-input').value = '';
-        console.log('send msg');
+        if ($("#codecheck").is(":checked")) {
+            clientSocket.emit(
+                'code snippet',
+                username,
+                document.getElementById('txt-input').value
+            );
+            document.getElementById('txt-input').value = '';
+            console.log('send code');
+        }
+        else {
+            clientSocket.emit(
+                'chat message',
+                username,
+                document.getElementById('txt-input').value,
+                'code'
+            );
+            document.getElementById('txt-input').value = '';
+            console.log('send msg');
+        }
     };
 });
+
+
 
 clientSocket.on('connect', () => {
     console.log('Connected to server!');
@@ -95,6 +109,20 @@ clientSocket.on('chat message', (msgsname, msg) => {
     // end here
 });
 
+clientSocket.on('code snippet', (name, code, check) => {
+    var prenode = document.createElement('PRE');
+    var codenode = document.createElement('CODE');
+    setAtt(prenode, 'class', 'language-js');
+    setAtt(codenode, 'class', 'language-js');
+    var html = Prism.highlight(code, Prism.languages.javascript, 'javascript');
+    codenode.innerHTML = html;
+    prenode.appendChild(codenode);
+    document.getElementById('msg-area').appendChild(prenode);
+    document.querySelector(
+        '#msg-area'
+    ).scrollTop = document.querySelector('#msg-area').scrollHeight;
+});
+
 
 function setAtt(node, att, attvalues) {
     node.setAttribute(att, attvalues);
@@ -115,3 +143,4 @@ function darkmode() {
         $(".ava").attr('src', 'https://www.spriters-resource.com/resources/sheet_icons/65/67841.png');
     }
 }
+

@@ -10,6 +10,10 @@ body {
 	margin-left: calc(90% - 140px);
 }
 
+pre {
+	height: 100px;
+}
+
 #sendbtn {
 	
 }

@@ -1,24 +1,25 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>
-			SIMPLE WEB CHAT
-		</title>
-		<!--  Put links here  -->
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"		/>
-		<script src="https://kit.fontawesome.com/213fbc8967.js"></script>
-		<script src="javascripts/functions.js"></script>
-		<link rel="shortcut icon" href="images/logo.ico" />
-		<link rel="stylesheet" href="stylesheets/style.css" />
-		<link rel="stylesheet" href="stylesheets/stylenes.css">
-		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
-	</head>
-	<body>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>
+		SIMPLE WEB CHAT
+	</title>
+	<!--  Put links here  -->
+	<link rel="stylesheet"
+		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script src="https://kit.fontawesome.com/213fbc8967.js"></script>
+	<script src="javascripts/functions.js"></script>
+	<link rel="shortcut icon" href="images/logo.ico" />
+	<link rel="stylesheet" href="stylesheets/style.css" />
+	<link rel="stylesheet" href="stylesheets/stylenes.css">
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+	<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-twilight.min.css" rel="stylesheet" />
+	
+</head>
+	<body id="body">
 
 		<div class="container">
 			<!-- Modal -->
@@ -43,32 +44,42 @@
 
 			<img src="/images/Snow.png" class="bg-image">
 			<label>
-				<input type="checkbox" id="darkbox" class="nes-checkbox" onclick="darkmode()" />
+				<input type="checkbox" id="darkbox" class="nes-checkbox" onclick="darkmode()"/>
 				<span>Dark mode</span>
 			</label>
 			<!-- Chat Page -->
 			<div style="padding-top: 2px; padding-bottom: 10px;">
-				<section class="message-list" id="msg-area"></section>
+				<section class="message-list" id="msg-area">
+					<pre><code class="language-js">var js;</code></pre>
+				</section>
 			</div>
 			<form class="fixed-bottom" id="send-container">
-				<input id="txt-input"
+				<textarea id="txt-input"
 					   type="text"
 					   class="nes-textarea"
 					   placeholder="Message"
 					   autocomplete="off"
-					   required />
-				<button class="nes-btn" id="sendbtn" type="submit">
+					   required>
+				</textarea>
+				<label>
+					<input type="checkbox" id="codecheck" class="nes-checkbox" />
+					<span>codesnippet</span>
+				</label>
+				<button class="nes-btn" id="sendbtn">
 					<i class="fas fa-paper-plane"></i> SEND
 				</button>
+
 			</form>
 		</div>
 		<!--  Put Socket here  -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js"></script>
 		<script src="javascripts/design.js"></script>
 		<script src="javascripts/functions.js"></script>
 		<script src="javascripts/front.js"></script>
+		
 	</body>
 	
 </html>
