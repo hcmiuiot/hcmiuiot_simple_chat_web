@@ -30,7 +30,12 @@ server.on('connection', (client) => {
 		} else {
 			var oldMsgs = JSON.parse(data);
 			while ((oldMsgs.length > 0) && (count < oldMsgs.length)) {
-				client.emit('chat message', oldMsgs[count].username, oldMsgs[count].message);	
+				if (oldMsgs[count].hasOwnProperty('message')) {
+					client.emit('chat message', oldMsgs[count].username, oldMsgs[count].message);
+				}
+				else {
+					client.emit('code snippet', oldMsgs[count].username, oldMsgs[count].snippet, 'code');
+                }
 				count += 1;
 			}
 		}
