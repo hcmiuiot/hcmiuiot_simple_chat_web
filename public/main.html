@@ -104,7 +104,7 @@
 					setAtt(node, 'class', 'message -right');
 					setAtt(node, 'id', 'right-msg');				
 					//Add msg:
-					setAtt(nodeiframe, 'class', 'ifr');
+					setAtt(nodeiframe, 'class', 'ifr');	
 					var nodemsg = document.createElement('P');
 					nodemsg.setAttribute(
 						'class',
@@ -115,8 +115,7 @@
 					node.appendChild(nodemsg);
 					node.appendChild(nodeiframe);
 					document.getElementById('msg-area').appendChild(node);
-					console.log(node);
-					
+					// console.log(node);
 				}
 				else {
 					setAtt(node, 'class', 'message -left');
