@@ -33,7 +33,7 @@
 		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
 	</head>
 	<body>
-		<img src="/images/bgimgs.png" class="bg-image">
+		
 		<div class="container">
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -41,33 +41,36 @@
 					<section class="nes-container with-title" style="background-image: url(images/background.webp);">
 						<h3 class="title">WELCOME TO WEB CHAT</h3>
 						<div class="modal-content" style="border: 0px">
-							<span style="font-size: 37px; background-image: url(images/background.webp);" >
+							<span style="font-size: 37px; background-image: url(images/background.webp);">
 								<i class="nes-octocat animate"></i>
 							</span>
 							<div class="nes-field" style="background-image: url(images/background.webp); margin-bottom: 2px;">
 								<input type="text" id="usernameInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Username" class="nes-input" />
 							</div>
-							<button type="button" class="nes-btn is-primary" data-dismiss="modal" id="btnUsername" disabled>
+							<button type="button" class="nes-btn" data-dismiss="modal" id="btnUsername" disabled>
 								LOGIN WITH THIS USERNAME
 							</button>
 						</div>
 					</section>
 				</div>
 			</div>
+			<img src="/images/Snow.png" class="bg-image">
+			<label>
+				<input type="checkbox" id="darkbox" class="nes-checkbox" onclick="darkmode()" />
+				<span>Dark mode</span>
+			</label>
 			<!-- Chat Page -->
 			<div style="padding-top: 2px; padding-bottom: 10px;">
 				<section class="message-list" id="msg-area"></section>
 			</div>
 			<form class="fixed-bottom" id="send-container">
-				<input
-					id="txt-input"
-					type="text"
-					class="nes-textarea"
-					placeholder="Message"
-					autocomplete="off"
-					required
-				/>
-				<button class="nes-btn is-primary" type="submit">
+				<input id="txt-input"
+					   type="text"
+					   class="nes-textarea"
+					   placeholder="Message"
+					   autocomplete="off"
+					   required />
+				<button class="nes-btn" id="sendbtn" type="submit">
 					<i class="fas fa-paper-plane"></i> SEND
 				</button>
 			</form>
@@ -99,8 +102,13 @@
 			clientSocket.on('chat message', (msgsname, msg) => {
 				//put the appendchild here?
 				var node = document.createElement('SECTION');
+                var kirby = document.createElement("IMG");
+				kirby.setAttribute('class', 'ava');
+                kirby.setAttribute('src', 'https://www.spriters-resource.com/resources/sheet_icons/65/67841.png');
+
 				if (msgsname === username) {
 					setAtt(node, 'class', 'message -right');
+					
 					setAtt(node, 'id', 'right-msg');				
 					//Add msg:
 
@@ -112,7 +120,7 @@
 					);
 					nodename.setAttribute(
 						'style',
-						'color: lightgrey; margin-bottom: 0px; font-size: 20px'
+						'color: lightgrey; margin-bottom: 0px; font-size: 20px '
 					);
 					var msgnode = document.createTextNode(msg);
 					var namenode = document.createTextNode(msgsname);
@@ -120,8 +128,11 @@
 					nodename.appendChild(namenode);
 					node.appendChild(nodemsg);
 					node.appendChild(nodename);
+                    node.appendChild(kirby);
 					document.getElementById('msg-area').appendChild(node);
 					console.log(node);
+					darkmode();
+                   
 				}
 				else {
 					setAtt(node, 'class', 'message -left');
@@ -144,7 +155,10 @@
 					nodemsg.appendChild(msgnode);
 					node.appendChild(nodename);
 					node.appendChild(nodemsg);
+                    node.appendChild(kirby);
 					document.getElementById('msg-area').appendChild(node);
+					darkmode();
+                   
 				}
 				document.querySelector(
 					'#msg-area'
@@ -154,7 +168,21 @@
 			function setAtt(node, att, attvalues) {
 				node.setAttribute(att, attvalues);
 			};
+			function darkmode() {
+				
+				if ($("#darkbox").is(":checked")) {
+					$(".bg-image").attr("src", "/images/SnowNight.png");
+					$(".ava").attr('src', '/images/rsz_3341.png');
+                    $(".nes-balloon").addClass("is-dark");
+				}
+				else {
+					$(".bg-image").attr("src", "/images/Snow.png");
+                    $(".nes-balloon").removeClass("is-dark");
+                    $(".ava").attr('src', 'https://www.spriters-resource.com/resources/sheet_icons/65/67841.png');
+                }
+            }
 		</script>
+
 	</body>
 	<script
 		src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

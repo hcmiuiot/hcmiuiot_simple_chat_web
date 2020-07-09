@@ -3,8 +3,6 @@ body {
 	margin: 0;
 	display: flex;
 	justify-content: center;
-
-	background-image: url("/images/background.webp");
 }
 
 #right-msg {
@@ -12,15 +10,21 @@ body {
 	margin-left: calc(90% - 140px);
 }
 
-
+#sendbtn {
+	
+}
 .bg-image {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    bottom: 0;  
-    z-index: -1;
+	position: fixed;
+	display: flex;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	z-index: -1;
+}
 
+.ava {
+	display:block;
 }
 
 #right-msg {
@@ -52,18 +56,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-	width: 68px;
-	height: 68px;
+	width: 30px;
+	height: 30px;
 }
 
 
 ::-webkit-scrollbar-thumb:vertical {
-	width: 68px;
-	height: 68px;
-	background-image: url("/images/ezgif.com-rotate(1).gif");
-	background-position: center bottom, center -40px;
-	background-repeat: no-repeat, no-repeat;
-	background-size: contain, contain;
+	opacity: 0.0;
 }
 
 ::-webkit-scrollbar-corner {
@@ -71,8 +70,6 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:horizontal {
-	width: 68px;
-	height: 68px;
 	background-image: url("https://i.imgur.com/MjeqeUP.gif");
 	background-position: center bottom, center -40px;
 	background-repeat: no-repeat, no-repeat;
