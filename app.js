@@ -20,6 +20,11 @@ app.get('/', (req, res) => {
 
 
 var arrMsg = [];
+// Function add space to string
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
 
 server.on('connection', (client) => {
 	var count = 0;
@@ -43,6 +48,20 @@ server.on('connection', (client) => {
 
 	//take message
 	client.on('chat message', (username, msg) => {
+		// Make msg fix to node in client
+		var msgCount = 0;
+		for (let i = 0; i < msg.length; i++) {
+			if (msg[i] == ' ') {
+				msgCount = 0;
+			} else {
+				msgCount++;
+				if (msgCount == 30) {
+					msg = msg.replaceAt(i, '\n');
+					msgCount = 0;
+				}
+			}
+		}
+
 		var usermsg = {
 			username: username,
 			message: msg,

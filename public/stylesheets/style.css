@@ -10,6 +10,11 @@ body {
 	margin-left: calc(90% - 140px);
 }
 
+#right-code {
+	position: relative;
+	margin-left: 50px;
+}
+
 pre {
 	background-color: darkslategrey;
 	display: flex;
@@ -18,6 +23,7 @@ pre {
 #sendbtn {
 	
 }
+
 .bg-image {
 	position: fixed;
 	display: flex;

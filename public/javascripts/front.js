@@ -105,17 +105,53 @@ clientSocket.on('chat message', (msgsname, msg) => {
 });
 
 clientSocket.on('code snippet', (name, code, lang) => {
-    var prenode = document.createElement('PRE');
-    var codenode = document.createElement('CODE');
-    setAtt(prenode, 'class', lang);
-    setAtt(codenode, 'class', lang);
-    var html = Prism.highlight(code, Prism.languages.javascript, 'javascript');
-    codenode.innerHTML = html;
-    prenode.appendChild(codenode);
-    document.getElementById('msg-area').appendChild(prenode);
+
+    var node = document.createElement('SECTION');
+    var kirby = document.createElement("IMG");
+    kirby.setAttribute('class', 'ava');
+    kirby.setAttribute('src', 'https://www.spriters-resource.com/resources/sheet_icons/65/67841.png');
+
+    if (name === username) {
+        setAtt(node, 'class', 'nes-balloon from-right -right');
+        setAtt(node, 'id', 'right-code');
+        var prenode = document.createElement('PRE');
+        var codenode = document.createElement('CODE');
+        setAtt(prenode, 'class', lang);
+        setAtt(codenode, 'class', lang);
+        var html = Prism.highlight(code, Prism.languages.javascript, 'javascript');
+        codenode.innerHTML = html;
+        prenode.appendChild(codenode);
+        node.appendChild(prenode);
+        node.appendChild(kirby);
+        document.getElementById('msg-area').appendChild(node);
+        console.log(node);
+        darkmode();
+
+    }
+    else {
+        setAtt(node, 'class', 'nes-balloon from-left -left');
+        setAtt(node, 'id', 'left-msg');
+        var prenode = document.createElement('PRE');
+        var codenode = document.createElement('CODE');
+        setAtt(prenode, 'class', lang);
+        setAtt(codenode, 'class', lang);
+        var html = Prism.highlight(code, Prism.languages.javascript, 'javascript');
+        codenode.innerHTML = html;
+        prenode.appendChild(codenode);
+        node.appendChild(prenode);
+
+        node.appendChild(kirby);
+        document.getElementById('msg-area').appendChild(node);
+        darkmode();
+
+    }
     document.querySelector(
         '#msg-area'
     ).scrollTop = document.querySelector('#msg-area').scrollHeight;
+    // end here
+
+  
+   
 });
 
 
