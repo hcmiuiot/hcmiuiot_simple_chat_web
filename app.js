@@ -51,7 +51,7 @@ server.on('connection', (client) => {
 			} else {
 				msgCount++;
 				if (msgCount == 30) {
-					msg = msg.replaceAt(i, ' ');
+					msg = msg.replaceAt(i, '\n');
 					msgCount = 0;
 				}
 			}
