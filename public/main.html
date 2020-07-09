@@ -9,31 +9,17 @@
 		<!--  Put links here  -->
 		<link
 			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-			crossorigin="anonymous"
-		/>
-		<script
-			src="https://kit.fontawesome.com/213fbc8967.js"
-			crossorigin="anonymous"
-		></script>
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"		/>
+		<script src="https://kit.fontawesome.com/213fbc8967.js"></script>
 		<script src="javascripts/functions.js"></script>
 		<link rel="shortcut icon" href="images/logo.ico" />
 		<link rel="stylesheet" href="stylesheets/style.css" />
 		<link rel="stylesheet" href="stylesheets/stylenes.css">
-		<script>
-			var username;
-			document.addEventListener('DOMContentLoaded', () => {
-				document.querySelector('#btnUsername').onclick = () => {
-					username = document.querySelector('#usernameInput').value;
-				};
-			});
-		</script>
 		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 		<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
 	</head>
 	<body>
-		
+
 		<div class="container">
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -54,6 +40,7 @@
 					</section>
 				</div>
 			</div>
+
 			<img src="/images/Snow.png" class="bg-image">
 			<label>
 				<input type="checkbox" id="darkbox" class="nes-checkbox" onclick="darkmode()" />
@@ -77,123 +64,11 @@
 		</div>
 		<!--  Put Socket here  -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
-		<script>
-			var clientSocket = io();
-
-			document.addEventListener('DOMContentLoaded', function () {
-				document.querySelector('#send-container').onsubmit = function (
-					e
-				) {
-					e.preventDefault();
-					clientSocket.emit(
-						'chat message',
-						username,
-						document.getElementById('txt-input').value
-					);
-					document.getElementById('txt-input').value = '';
-					console.log('send msg');
-				};
-			});
-
-			clientSocket.on('connect', () => {
-				console.log('Connected to server!');
-			});
-
-			clientSocket.on('chat message', (msgsname, msg) => {
-				//put the appendchild here?
-				var node = document.createElement('SECTION');
-                var kirby = document.createElement("IMG");
-				kirby.setAttribute('class', 'ava');
-                kirby.setAttribute('src', 'https://www.spriters-resource.com/resources/sheet_icons/65/67841.png');
-
-				if (msgsname === username) {
-					setAtt(node, 'class', 'message -right');
-					
-					setAtt(node, 'id', 'right-msg');				
-					//Add msg:
-
-					var nodemsg = document.createElement('DIV');
-					var nodename = document.createElement("I");
-					nodemsg.setAttribute(
-						'class',
-						'nes-balloon from-right'
-					);
-					nodename.setAttribute(
-						'style',
-						'color: lightgrey; margin-bottom: 0px; font-size: 20px '
-					);
-					var msgnode = document.createTextNode(msg);
-					var namenode = document.createTextNode(msgsname);
-					nodemsg.appendChild(msgnode);
-					nodename.appendChild(namenode);
-					node.appendChild(nodemsg);
-					node.appendChild(nodename);
-                    node.appendChild(kirby);
-					document.getElementById('msg-area').appendChild(node);
-					console.log(node);
-					darkmode();
-                   
-				}
-				else {
-					setAtt(node, 'class', 'message -left');
-					setAtt(node, 'id', 'left-msg');				
-					//Add msg:
-					var nodemsg = document.createElement('P');
-
-					var nodename = document.createElement("I");
-					nodemsg.setAttribute(
-						'class',
-						'nes-balloon from-left'
-					);
-					nodename.setAttribute(
-						'style',
-						'font-style: oblique; font-size: 20; color: pink'
-					);
-					var msgnode = document.createTextNode(msg);
-					var namenode = document.createTextNode(msgsname);
-					nodename.appendChild(namenode);
-					nodemsg.appendChild(msgnode);
-					node.appendChild(nodename);
-					node.appendChild(nodemsg);
-                    node.appendChild(kirby);
-					document.getElementById('msg-area').appendChild(node);
-					darkmode();
-                   
-				}
-				document.querySelector(
-					'#msg-area'
-				).scrollTop = document.querySelector('#msg-area').scrollHeight;
-				// end here
-			});
-			function setAtt(node, att, attvalues) {
-				node.setAttribute(att, attvalues);
-			};
-			function darkmode() {
-				
-				if ($("#darkbox").is(":checked")) {
-					$(".bg-image").attr("src", "/images/SnowNight.png");
-					$(".ava").attr('src', '/images/rsz_3341.png');
-                    $(".nes-balloon").addClass("is-dark");
-				}
-				else {
-					$(".bg-image").attr("src", "/images/Snow.png");
-                    $(".nes-balloon").removeClass("is-dark");
-                    $(".ava").attr('src', 'https://www.spriters-resource.com/resources/sheet_icons/65/67841.png');
-                }
-            }
-		</script>
-
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		<script src="javascripts/design.js"></script>
+		<script src="javascripts/functions.js"></script>
+		<script src="javascripts/front.js"></script>
 	</body>
-	<script
-		src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"
-	></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-		crossorigin="anonymous"
-	></script>
-  <script src="javascripts/design.js"></script>
-	<script src="javascripts/functions.js"></script>
+	
 </html>
