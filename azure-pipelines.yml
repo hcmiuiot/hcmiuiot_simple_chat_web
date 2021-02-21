@@ -10,8 +10,8 @@ variables:
   tag: 'hungthuanmk/simplechat:$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: Container
+  displayName: Build docker image
   jobs:
   - job: Build
     displayName: Build
