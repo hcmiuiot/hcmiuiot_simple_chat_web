@@ -26,7 +26,8 @@ stages:
         repository: 'hungthuanmk/simplechat'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
-          $(tag)
+          $(Build.BuildId)
+          latest
 
     - task: Docker@2
       displayName: Push an image
