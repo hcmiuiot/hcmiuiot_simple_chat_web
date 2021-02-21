@@ -7,7 +7,7 @@ resources:
 - repo: self
 
 variables:
-  tag: 'hungthuanmk/simplechat:$(Build.BuildId)'
+  tag: '$(Build.BuildId)'
 
 stages:
 - stage: Container
@@ -22,6 +22,8 @@ stages:
       displayName: Build an image
       inputs:
         command: build
+        containerRegistry: 'Docker Hub'
+        repository: 'hungthuanmk/simplechat'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
@@ -34,4 +36,4 @@ stages:
         command: 'push'
         tags: |
           $(Build.BuildId)
-          hungthuanmk/simplechat:latest
+          latest
