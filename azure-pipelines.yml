@@ -1,6 +1,4 @@
 # Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
 - master
@@ -9,7 +7,7 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  tag: 'hungthuanmk/simplechat:$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -36,4 +34,4 @@ stages:
         command: 'push'
         tags: |
           $(Build.BuildId)
-          latest
+          hungthuanmk/simplechat:latest
