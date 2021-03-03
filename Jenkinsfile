@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent none
   stages {
     stage('Checkout') {
       steps {
@@ -9,7 +9,7 @@ pipeline {
 
     stage('Container') {
       steps {
-        sh 'docker build -t hcmiuiot/simple_chat:latest'
+        archiveArtifacts 'artifact'
       }
     }
 
