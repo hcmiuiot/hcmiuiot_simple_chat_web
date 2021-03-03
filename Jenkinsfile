@@ -7,11 +7,5 @@ pipeline {
       }
     }
 
-    stage('Container') {
-      steps {
-        archiveArtifacts 'artifact'
-      }
-    }
-
   }
 }
