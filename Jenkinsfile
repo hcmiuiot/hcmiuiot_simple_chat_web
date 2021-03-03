@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('Container') {
+      steps {
+        sh 'docker build -t hcmiuiot/simple_chat:latest'
+      }
+    }
+
   }
 }
