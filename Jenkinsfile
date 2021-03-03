@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'mhart/alpine-node'
-    }
-
-  }
+  agent any
   stages {
     stage('Checkout') {
       steps {
