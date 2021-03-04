@@ -13,7 +13,7 @@ pipeline {
       steps {
         sh '''
 
-docker build -t hcmiuiot/simple_chat_web:latest'''
+docker build -t hcmiuiot/simple_chat_web:latest .'''
       }
     }
 
